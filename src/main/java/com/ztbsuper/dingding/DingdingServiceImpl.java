@@ -56,7 +56,7 @@ public class DingdingServiceImpl implements DingdingService {
     public void start() {
         String pic = "http://icon-park.com/imagefiles/loading7_gray.gif";
         String title = String.format("%s%s开始构建", build.getProject().getDisplayName(), build.getDisplayName());
-        String content = String.format("项目[%s%s]开始构建", build.getProject().getDisplayName(), build.getDisplayName());
+        String content = String.format("迪备服务器: %s\n测试场景: %s", build.getBuildVariableResolver().resolve("host"), build.getBuildVariableResolver().resolve("case_type"));
 
         String link = getBuildUrl();
         if (onStart) {
@@ -76,10 +76,11 @@ public class DingdingServiceImpl implements DingdingService {
 
     @Override
     public void success() {
+        // TODO: change message type to Markdown.
         String pic = "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png";
         String title = String.format("%s%s构建成功", build.getProject().getDisplayName(), build.getDisplayName());
-        String content = String.format("项目[%s%s]构建成功, summary:%s, duration:%s", build.getProject().getDisplayName(), build.getDisplayName(), build.getBuildStatusSummary().message, build.getDurationString());
-
+//        String content = String.format("项目[%s%s]构建成功, summary:%s, duration:%s", build.getProject().getDisplayName(), build.getDisplayName(), build.getBuildStatusSummary().message, build.getDurationString());
+        String content = String.format("迪备服务器: %s\n测试场景: %s\n耗时: %s", build.getBuildVariableResolver().resolve("host"), build.getBuildVariableResolver().resolve("case_type"), build.getDurationString());
         String link = getBuildUrl();
         logger.info(link);
         if (onSuccess) {
@@ -92,8 +93,7 @@ public class DingdingServiceImpl implements DingdingService {
     public void failed() {
         String pic = "http://www.iconsdb.com/icons/preview/soylent-red/x-mark-3-xxl.png";
         String title = String.format("%s%s构建失败", build.getProject().getDisplayName(), build.getDisplayName());
-        String content = String.format("项目[%s%s]构建失败, summary:%s, duration:%s", build.getProject().getDisplayName(), build.getDisplayName(), build.getBuildStatusSummary().message, build.getDurationString());
-
+        String content = String.format("迪备服务器: %s\n测试场景: %s\n耗时: %s", build.getBuildVariableResolver().resolve("host"), build.getBuildVariableResolver().resolve("case_type"), build.getDurationString());
         String link = getBuildUrl();
         logger.info(link);
         if (onFailed) {
@@ -106,8 +106,7 @@ public class DingdingServiceImpl implements DingdingService {
     public void abort() {
         String pic = "http://www.iconsdb.com/icons/preview/soylent-red/x-mark-3-xxl.png";
         String title = String.format("%s%s构建中断", build.getProject().getDisplayName(), build.getDisplayName());
-        String content = String.format("项目[%s%s]构建中断, summary:%s, duration:%s", build.getProject().getDisplayName(), build.getDisplayName(), build.getBuildStatusSummary().message, build.getDurationString());
-
+        String content = String.format("迪备服务器: %s\n测试场景: %s\n耗时: %s", build.getBuildVariableResolver().resolve("host"), build.getBuildVariableResolver().resolve("case_type"), build.getDurationString());
         String link = getBuildUrl();
         logger.info(link);
         if (onAbort) {
